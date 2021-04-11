@@ -2,43 +2,38 @@ import Link from 'next/link'
 
 import {useQuery} from '@apollo/client'
 
-import {getAllEvents} from './controllers/EventController'
+import {getAllEvents} from './api/controllers/EventController'
 
-import {initializeApollo, ResolverContext, getHeaders} from '../lib/apollo'
+import {initializeApollo} from '../lib/apollo'
 
+import { useSession, getSession } from 'next-auth/client'
 
+import Header from '../modules/header/header'
+import Footer from '../modules/footer/footer'
 
 const Index = () => {
 
-  const {loading, data} = useQuery(getAllEvents())
-  console.log(data)
- 
+  // const {loading, data} = useQuery(getAllEvents())
+  // console.log(data)
+  const [ session, loading ] = useSession()
 
   return (
-    <div>
-      You're signed in as  and you're  Go to the{' '} Age 
-      <Link href="/about">
-        <a>about</a>
-      </Link>{' '}
-      page.
-      <div>
-        <input
-          type="text"
-          placeholder="your new name..."
-          // onChange={(e) => setNewName(e.target.value)}
-        />
-        <input type="button" value="change"  />
-      </div>
-    </div>
+    <>
+    <Header/>
+    <main>
+ 
+    </main>
+    <Footer/>
+    </>
   )
 }
 export async function getServerSideProps(context:any){
-  const headers = getHeaders(context)
-  const apolloClient = await initializeApollo(headers)
+
+  const apolloClient = await initializeApollo()
   return {
     props: {
     initialApolloState: apolloClient.cache.extract(),
-
+    session: await getSession(context)
     }
   }
 }

@@ -4,7 +4,7 @@ import { useApollo } from '../lib/apollo'
 
 export default function App({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps.initialApolloState)
-
+  console.log(pageProps.initialApolloState)
   return (
     <ApolloProvider client={apolloClient}>
       <Component {...pageProps} />

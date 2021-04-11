@@ -11,7 +11,6 @@ import {
 import { WebSocketLink } from "@apollo/client/link/ws";
 
 
-
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
 
 export type ResolverContext = {
@@ -20,12 +19,13 @@ export type ResolverContext = {
 }
 
 const createHttpLink = () => {
+  
   const httpLink = new HttpLink({
     uri: 'https://rare-viper-70.hasura.app/v1/graphql',
     credentials: 'include',
     headers :{
       'content-type' : 'application.json',
-      'x-hasura-admin-secret' : 'LPZa1RJZEuI78D5yuRnBGD96n2MefeQ13iLN8vn3FQdOlZMbaQ954LULgRFR68bm'
+      'x-hasura-admin-secret' : process.env.HASURA_GRAPHQL_ADMIN_SECRET
     },
     fetch
   })

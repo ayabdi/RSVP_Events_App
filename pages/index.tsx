@@ -1,43 +1,36 @@
-import Link from 'next/link'
 
-import {useQuery} from '@apollo/client'
 
-import {getAllEvents} from './api/controllers/EventController'
+import { initializeApollo } from "../lib/apollo";
 
-import {initializeApollo} from '../lib/apollo'
+import {getSession, providers} from "next-auth/client";
 
-import { useSession, getSession } from 'next-auth/client'
+import Header from "../modules/header/header";
+import Footer from "../modules/footer/footer";
+import { InferGetServerSidePropsType } from "next";
 
-import Header from '../modules/header/header'
-import Footer from '../modules/footer/footer'
 
-const Index = () => {
 
-  // const {loading, data} = useQuery(getAllEvents())
-  // console.log(data)
-  const [ session, loading ] = useSession()
-
-  return (
-    <>
-    <Header/>
-    <main>
- 
-    </main>
-    <Footer/>
-    </>
-  )
-}
-export async function getServerSideProps(context:any){
-
-  const apolloClient = await initializeApollo()
+export async function getServerSideProps(context: any) {
+  
+  const apolloClient = await initializeApollo();
+  const provider = await providers()
   return {
     props: {
-    initialApolloState: apolloClient.cache.extract(),
-    session: await getSession(context)
-    }
-  }
+      initialApolloState: apolloClient.cache.extract(),
+      session: await getSession(context),
+      provider
+    },
+  };
 }
+const Index = ({session , provider} : InferGetServerSidePropsType<typeof getServerSideProps>) => {
+ console.log(provider)
+  return (
+    <>
+      <Header session = {session}/>
+      <main></main>
+      <Footer />
+    </>
+  );
+};
 
-
-
-export default Index
+export default Index;

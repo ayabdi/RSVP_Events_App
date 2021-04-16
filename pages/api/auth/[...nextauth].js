@@ -1,7 +1,10 @@
 import NextAuth, { User } from "next-auth";
 import Providers from "next-auth/providers";
 import jwt from "jsonwebtoken";
-import { createUser, getUser } from "../../../lib/api/userQueries";
+import { createUser, getUser } from "../../../lib/auth/user";
+import cookie from 'cookie'
+
+
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -54,12 +57,13 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/options#jwt
   jwt: {
     // A secret to use for key generation (you should set this explicitly)
-    secret: process.env.SECRET,
+    secret: "c1f08688e7689f1d021dd1ab1b11f873",
+    signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
     // Set to true to use encryption (default: false)
     // encryption: true,
     // You can define your own encode/decode functions for signing and encryption
     // if you want to override the default behaviour.
-    encode: async ({ secret, token, maxAge }) => {
+    encode: async ({ secret,  token, maxAge ,signingKey}) => {
       const jwtClaims = {
         sub: token.id,
         name: token.name,
@@ -71,15 +75,17 @@ export default NextAuth({
           "x-hasura-default-role": "user",
           "x-hasura-role": "user",
           "x-hasura-user-id": token?.id,
+
         },
       };
-      const encodedToken = jwt.sign(jwtClaims, secret, { algorithm: "HS256" });
+      const encodedToken = jwt.sign(jwtClaims, secret,{ algorithm: "HS256" });
 
       return encodedToken;
     },
 
     decode: async ({ secret, token, maxAge }) => {
-      const decodedToken = jwt.verify(token, secret, { algorithms: ["HS256"] });
+      const decodedToken = jwt.verify(token, secret,{ algorithms: ["HS256"] });
+      cookie.serialize('userID' , decodedToken.sub )
       if (decodedToken.sub) {
         const data = await getUser(decodedToken.sub);
         if (!data) {
@@ -96,7 +102,7 @@ export default NextAuth({
   // pages is not specified for that route.
   // https://next-auth.js.org/configuration/pages
   pages: {
-    // signIn: '/auth/signin',  // Displays signin buttons
+    //signIn: '/auth/signin',  // Displays signin buttons
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page
@@ -115,7 +121,7 @@ export default NextAuth({
       });
       session.id = token.id;
       session.token = encodedToken;
-      return Promise.resolve(session);
+      return Promise.resolve({ ...session, user: { ...session.user, id: token.id } })
     },
     async jwt(token, user, account, profile, isNewUser) {
       const isUserSignedIn = user ? true : false;

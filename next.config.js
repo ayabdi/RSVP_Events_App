@@ -1,39 +1,36 @@
-const dotenv = require('dotenv')
-dotenv.config()
+const dotenv = require("dotenv");
+dotenv.config();
 module.exports = {
   webpack(config, options) {
     config.module.rules.push({
       test: /\.graphql$/,
       exclude: /node_modules/,
-      use: [options.defaultLoaders.babel, { loader: 'graphql-let/loader' }],
-    })
+      use: [options.defaultLoaders.babel, { loader: "graphql-let/loader" }],
+    });
 
     config.module.rules.push({
       test: /\.graphqls$/,
       exclude: /node_modules/,
-      use: ['graphql-let/schema/loader'],
-    })
+      use: ["graphql-let/schema/loader"],
+    });
 
     config.module.rules.push({
       test: /\.ya?ml$/,
-      type: 'json',
-      use: 'yaml-loader',
-    })
+      type: "json",
+      use: "yaml-loader",
+    });
 
-    return config
+    return config;
   },
   env: {
-    AUTH0_DOMAIN: process.env.AUTH0_DOMAIN,
-    AUTH0_AUDIENCE: process.env.AUTH0_AUDIENCE,
-    AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
-    AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
-    AUTH0_SCOPE: 'openid profile',
-    REDIRECT_URI:
-      process.env.REDIRECT_URI || 'http://localhost:3000/api/callback',
-    POST_LOGOUT_REDIRECT_URI:
-      process.env.POST_LOGOUT_REDIRECT_URI || 'http://localhost:3000/',
-    
-    SESSION_COOKIE_LIFETIME: 7200, // 2 hours
-    APP_HOST: process.env.DOMAIN,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    SECRET: process.env.SECRET,
+    JWT_SIGNING_PRIVATE_KEY : process.env.JWT_SIGNING_PRIVATE_KEY,
+    HASURA_GRAPHQL_ADMIN_SECRET: process.env.HASURA_GRAPHQL_ADMIN_SECRET,
+    DATABASE_URL: process.env.DATABASE_URL,
+    GITHUB_ID: process.env.GITHUB_ID,
+    GITHUB_SECRET: process.env.GITHUB_SECRET,
+    GOOGLE_ID: process.env.GOOGLE_ID,
+    GOOGLE_SECRET: process.env.GOOGLE_SECRET,
   },
-}
+};

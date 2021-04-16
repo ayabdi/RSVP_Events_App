@@ -1,5 +1,6 @@
-//import gql from "graphql-tag";
+import { DocumentNode } from "graphql";
 import { GraphQLClient, gql } from "graphql-request";
+
 
 const endpoint = "https://rare-viper-70.hasura.app/v1/graphql";
 const graphQLClient = new GraphQLClient(endpoint);
@@ -43,11 +44,4 @@ export const getUser = async (id: Number) => {
   const data = await graphQLClient.request(GET_USER);
 
   return data.RSVP_Users[0]
-};
-
-export const deleteUser = () => {
-  const DELETE_USER = gql``;
-};
-export const updateUser = () => {
-  const UPDATE_USER = gql``;
 };

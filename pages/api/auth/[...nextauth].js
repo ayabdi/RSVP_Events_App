@@ -2,8 +2,6 @@ import NextAuth, { User } from "next-auth";
 import Providers from "next-auth/providers";
 import jwt from "jsonwebtoken";
 import { createUser, getUser } from "../../../lib/auth/user";
-import cookie from 'cookie'
-
 
 
 // For more information on each option (and a full list of options) go to
@@ -57,13 +55,13 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/options#jwt
   jwt: {
     // A secret to use for key generation (you should set this explicitly)
-    secret: "c1f08688e7689f1d021dd1ab1b11f873",
+    secret: process.env.SECRET,
     signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
     // Set to true to use encryption (default: false)
     // encryption: true,
     // You can define your own encode/decode functions for signing and encryption
     // if you want to override the default behaviour.
-    encode: async ({ secret,  token, maxAge ,signingKey}) => {
+    encode: async ({ secret, token, maxAge, signingKey }) => {
       const jwtClaims = {
         sub: token.id,
         name: token.name,
@@ -75,17 +73,15 @@ export default NextAuth({
           "x-hasura-default-role": "user",
           "x-hasura-role": "user",
           "x-hasura-user-id": token?.id,
-
         },
       };
-      const encodedToken = jwt.sign(jwtClaims, secret,{ algorithm: "HS256" });
+      const encodedToken = jwt.sign(jwtClaims, secret, { algorithm: "HS256" });
 
       return encodedToken;
     },
 
     decode: async ({ secret, token, maxAge }) => {
-      const decodedToken = jwt.verify(token, secret,{ algorithms: ["HS256"] });
-      cookie.serialize('userID' , decodedToken.sub )
+      const decodedToken = jwt.verify(token, secret, { algorithms: ["HS256"] });
       if (decodedToken.sub) {
         const data = await getUser(decodedToken.sub);
         if (!data) {
@@ -121,7 +117,10 @@ export default NextAuth({
       });
       session.id = token.id;
       session.token = encodedToken;
-      return Promise.resolve({ ...session, user: { ...session.user, id: token.id } })
+      return Promise.resolve({
+        ...session,
+        user: { ...session.user, id: token.id },
+      });
     },
     async jwt(token, user, account, profile, isNewUser) {
       const isUserSignedIn = user ? true : false;
@@ -130,6 +129,18 @@ export default NextAuth({
         token.id = user.id.toString();
       }
       return Promise.resolve(token);
+    },
+    async signIn(user, account, profile) {
+      const isAllowedToSignIn = true
+      if (isAllowedToSignIn) {
+        return true
+      } else {
+      return "../../../dashboard";
+      }
+    },
+
+    async redirect(url, baseUrl) {
+      return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
 

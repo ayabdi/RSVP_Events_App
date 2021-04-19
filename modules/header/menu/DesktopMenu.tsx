@@ -2,6 +2,7 @@ import { FC, Fragment } from "react";
 import { session, signIn, signOut } from "next-auth/client";
 import { Menu, Transition } from "@headlessui/react";
 import { Session } from "next-auth";
+import {UserCircleIcon} from "@heroicons/react/solid";
 
 interface DesktopMenuProps {
   profile: String[];
@@ -37,11 +38,7 @@ const DesktopMenu: FC<DesktopMenuProps> = (props ): JSX.Element => {
                 <div>
                   <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <span className="sr-only">Open user menu</span>
-                    <img
-                      className="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    />
+                    <UserCircleIcon className="h-8 w-8 rounded-full bg-gray-300" />
                   </Menu.Button>
                 </div>
                 <Transition

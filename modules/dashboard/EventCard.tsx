@@ -15,7 +15,7 @@ export const EventCard :FC<EventCardProps> = (props): JSX.Element => { {
         const notAttending = countNotAttending(props.event.Invitees)
    
     return (
-        <div className="mt-12 grid gap-6 max-w-lg mx-auto md:grid-cols-2 lg:grid-cols-3 md:max-w-none">
+        <div className="mt-12  mx-auto  md:max-w-none">
                   <div className="relative w-full h-full group cursor-pointer">
                     <div className="relative pb-80 rounded-xl overflow-hidden" style={{backgroundColor: 'rgb(241, 89, 74)'}}>
                       <img

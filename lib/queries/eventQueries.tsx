@@ -1,12 +1,16 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
+import { InviteeObject } from "./inviteeQueries";
 
 
-export interface EventObject {
-  eventName : String,
-  eventDate : Date,
-  eventType : String;
+export type EventsType = {
+  event_name : String,
+  event_date : Date,
+  event_type : String,
+  host_id: Number,
+  Invitees : InviteeObject[]
 }
+
 
 export const getAllEvents = () => {
   const GET_Events : DocumentNode = gql`
@@ -31,7 +35,22 @@ export const insertEvent = () => {
   }`;
   return INSERT_EVENT;
 };
-const getEvent = () => {
-
+export const getEventsByUser = (hostID : Number) => {
+    const GET_EVENT = gql`
+    query MyQuery{
+      RSVP_Events(where: {host_id: {_eq: ${hostID}}}) {
+        event_name
+        event_type
+        host_id
+        id
+        event_date
+        created_at
+        Invitees {
+          status
+        }
+      }
+    }
+    `;
+    return GET_EVENT
 }
 

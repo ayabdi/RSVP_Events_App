@@ -5,6 +5,7 @@ import DesktopMenu from "./menu/DesktopMenu";
 import MobileMenu from "./menu/MobileMenu";
 import { MenuPanel } from "./menu/MenuPanel";
 import { useSession } from "next-auth/client";
+import { Session } from "next-auth";
 
 export type NavType = {
   title: String;
@@ -14,12 +15,14 @@ export type NavType = {
 interface NavProps {
   isWhite: Boolean;
   navigation: NavType;
+  session? : Session | null,
+  isLoading? : Boolean
 }
 
 const Navbar: FC<NavProps> = (props): JSX.Element => {
-  const [session , isloading] = useSession();
+  
   const profile = ["Your Profile", "Settings", "Sign out"];
-
+  
   return (
     <Disclosure
       as="nav"
@@ -69,8 +72,8 @@ const Navbar: FC<NavProps> = (props): JSX.Element => {
               <DesktopMenu
                 profile={profile}
                 isWhite={props.isWhite}
-                session={session}
-                loading = {isloading}
+                session={props.session}
+                loading = {props.isLoading}
               />
               <MobileMenu open={open} />
             </div>

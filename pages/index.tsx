@@ -21,7 +21,8 @@ export async function getServerSideProps(context: any) {
   };
 }
 const Index = ({session } : InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  console.log(session?.user)
+ 
+  
   return (
     
     <>

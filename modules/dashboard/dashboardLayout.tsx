@@ -35,7 +35,7 @@ export const dashboardLayout: FC = (props): JSX.Element => {
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         
           <div className="px-4 py-6 sm:px-0">
-            <div className="border-4 border-dashed border-gray-200 rounded-lg ">
+            <div className="border-4 border-dashed border-gray-200 rounded-lg  grid  md:grid-cols-2 lg:grid-cols-3 gap-3">
               {eventData
                 ? eventData.RSVP_Events.map((event : EventsType, idx : Key) => (
                     <EventCard key= {idx} event={event} />

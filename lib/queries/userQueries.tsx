@@ -5,13 +5,12 @@ import gql from "graphql-tag";
 
 
 
-export const getUser = (email: String) => {
+
+export const getUser = (email: String | null | undefined) => {
   const GET_USER : DocumentNode = gql`
     query MyQuery {
         RSVP_Users(where: {email: {_eq: "${email}"}}) {
           id
-          name
-          email
         }
       }
       `;

@@ -1,5 +1,5 @@
 import { FC, Fragment } from "react";
-import { session, signIn, signOut } from "next-auth/client";
+import {signIn, signOut } from "next-auth/client";
 import { Menu, Transition } from "@headlessui/react";
 import { Session } from "next-auth";
 import {UserCircleIcon} from "@heroicons/react/solid";
@@ -11,7 +11,7 @@ interface DesktopMenuProps {
   loading?: Boolean;
 }
 const DesktopMenu: FC<DesktopMenuProps> = (props ): JSX.Element => {
-  const classNames = (...classes: String[]) => {
+ const classNames = (...classes: String[]) => {
     return classes.filter(Boolean).join(" ");
   };
 

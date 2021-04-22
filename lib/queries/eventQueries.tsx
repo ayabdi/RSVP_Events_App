@@ -3,12 +3,19 @@ import gql from "graphql-tag";
 import { InviteeObject } from "./inviteeQueries";
 
 
-export type EventsType = {
-  event_name : String,
+export type EventsQueryType = {
+  event_name : string,
   event_date : Date,
-  event_type : String,
+  event_type : string,
+  country : string,
+  address : string,
   host_id: Number,
-  Invitees : InviteeObject[]
+  city? :string,
+  state? : string,
+  zip? : string,
+  name? : string,
+  email?: string,
+  Invitees? : InviteeObject[]
 }
 
 
@@ -25,8 +32,8 @@ export const getAllEvents = () => {
 
 export const insertEvent = () => {
   const INSERT_EVENT : DocumentNode = gql`
-  mutation MyMutation($event_date: date, $event_name: String!, $event_type : String! , $host_id: numeric! , $name: String!, $email: String!){
-    insert_RSVP_Events(objects: {User: {data: {id: $host_id, name: $name, email: $email}, on_conflict: {constraint: Users_email_key, update_columns: id}}, event_name: $event_name, event_type: $event_type, event_date: $event_date}) {
+  mutation MyMutation($event_date: date, $event_name: String!, $event_type : String! , $host_id: numeric! , $name: String!, $email: String!, $country : String!, $address : String! , $zip : String! , $city : String! , $state : String!){
+    insert_RSVP_Events(objects: {User: {data: {id: $host_id, name: $name, email: $email}, on_conflict: {constraint: Users_email_key, update_columns: id}}, event_name: $event_name, event_type: $event_type, event_date: $event_date, country : $country, address:$address , city:$city , zip:$zip, state:$state}) {
       returning {
         event_name
         host_id
@@ -37,7 +44,7 @@ export const insertEvent = () => {
 };
 export const getEventsByUser = (hostID : Number) => {
     const GET_EVENT = gql`
-    query MyQuery{
+    subscription MyQuery{
       RSVP_Events(where: {host_id: {_eq: ${hostID}}}) {
         event_name
         event_type

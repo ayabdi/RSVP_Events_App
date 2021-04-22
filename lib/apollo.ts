@@ -9,14 +9,16 @@ import {
   HttpLink,
 } from '@apollo/client'
 import { WebSocketLink } from "@apollo/client/link/ws";
-
-
-let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
+import { SubscriptionClient } from 'subscriptions-transport-ws';
 
 export type ResolverContext = {
   req?: IncomingMessage | NextApiRequest
   res?: ServerResponse | NextApiResponse<any>
 }
+
+let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
+
+
 
 const createHttpLink = () => {
   
@@ -31,11 +33,29 @@ const createHttpLink = () => {
   })
   return httpLink;
 }
+const createWSLink = () => {
+  return new WebSocketLink(
+    new SubscriptionClient('wss://rare-viper-70.hasura.app/v1/graphql', {
+      lazy: true,
+      reconnect: true,
+      connectionParams:  {
+        headers :{
+          'content-type' : 'application.json',
+          'x-hasura-admin-secret' : process.env.HASURA_GRAPHQL_ADMIN_SECRET
+        },
+        }
+      },
+  ))}
+
 function createApolloClient() {
   const ssrMode:boolean = typeof window === 'undefined'
   let link: HttpLink | WebSocketLink 
+    if (ssrMode) {
     link = createHttpLink()
-    //console.log(accessToken)
+  } else {
+    link = createWSLink()
+  }
+
   return new ApolloClient({
     ssrMode,
     link,

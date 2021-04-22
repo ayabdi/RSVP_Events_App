@@ -1,22 +1,23 @@
-import { FC , useState} from "react"
-import { EventsType } from "../../lib/queries/eventQueries"
+import { FC} from "react"
+import { EventsQueryType } from "../../lib/queries/eventQueries"
 import { countAttending, countNotAttending, countPending } from "../functions/aggregates"
-
+import { CardOptions } from "./CardOptions";
 
 interface EventCardProps {
-    event : EventsType
+    event : EventsQueryType
 }
 
 export const EventCard :FC<EventCardProps> = (props): JSX.Element => { {
 
   
-        const pending = countPending(props.event.Invitees)
-        const attending = countAttending(props.event.Invitees)
-        const notAttending = countNotAttending(props.event.Invitees)
+        const pending = props.event.Invitees && countPending(props.event.Invitees)
+        const attending = props.event.Invitees && countAttending(props.event.Invitees)
+        const notAttending = props.event.Invitees && countNotAttending(props.event.Invitees)
    
     return (
         <div className="mt-12  mx-auto  md:max-w-none">
                   <div className="relative w-full h-full group cursor-pointer">
+                     <CardOptions/>
                     <div className="relative pb-80 rounded-xl overflow-hidden" style={{backgroundColor: 'rgb(241, 89, 74)'}}>
                       <img
                         src="https://rsvpify-v3.s3.amazonaws.com/events/92/wall/images/507/C3aOSfzevRQKLN7S.png"

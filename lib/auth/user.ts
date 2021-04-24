@@ -3,9 +3,9 @@ import { GraphQLClient, gql } from "graphql-request";
 
 
 const endpoint = "https://rare-viper-70.hasura.app/v1/graphql";
-const graphQLClient = new GraphQLClient(endpoint);
+export const graphQLClient = new GraphQLClient(endpoint);
 
-graphQLClient.setHeaders({
+ graphQLClient.setHeaders({
   "content-type": "application.json",
   "x-hasura-admin-secret": `${process.env.HASURA_GRAPHQL_ADMIN_SECRET}`,
 });

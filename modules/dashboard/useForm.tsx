@@ -12,6 +12,7 @@ const useForm = (session :any ) => {
     event_name: " ",
     event_date: new Date(),
     event_type: " ",
+    event_desc: " ",
     country: " ",
     address: " ",
     zip: " ",

@@ -1,11 +1,11 @@
 import React, { FC, Key} from "react";
-
+import Link from 'next/link'
 import Navbar, { NavType } from "../header/navbar";
 import { EventCard } from "./EventCard";
 import { useQuery, useSubscription } from "@apollo/client";
-import { getUser } from "../../lib/queries/userQueries";
+import { getUser } from "../queries/userQueries";
 import { useSession } from "next-auth/client";
-import { EventsQueryType, getEventsByUser } from "../../lib/queries/eventQueries";
+import { EventsQueryType, getEventsByUser } from "../queries/eventQueries";
 import { CreateButton } from "./CreateButton";
 
 
@@ -36,9 +36,11 @@ export const dashboardLayout: FC = (): JSX.Element => {
         </div>
       </header>
       <main>
+   
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0 mt-10">
             <div className="border-4 border-dashed border-gray-200 rounded-lg px-7 pt-10 pb-16 ">
+             
               <CreateButton session={session}/>
               <div className="grid  md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {eventData

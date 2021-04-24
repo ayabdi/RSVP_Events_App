@@ -1,7 +1,7 @@
 import { FC} from "react"
-import { EventsQueryType } from "../../lib/queries/eventQueries"
 import { countAttending, countNotAttending, countPending } from "../functions/aggregates"
 import { CardOptions } from "./CardOptions";
+import { EventsQueryType } from "../queries/eventQueries";
 
 interface EventCardProps {
     event : EventsQueryType

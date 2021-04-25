@@ -2,6 +2,8 @@ import { FC} from "react"
 import { countAttending, countNotAttending, countPending } from "../functions/aggregates"
 import { CardOptions } from "./CardOptions";
 import { EventsQueryType } from "../queries/eventQueries";
+import Link from "next/link";
+import { useRouter } from "next/dist/client/router";
 
 interface EventCardProps {
     event : EventsQueryType
@@ -13,10 +15,13 @@ export const EventCard :FC<EventCardProps> = (props): JSX.Element => { {
         const pending = props.event.Invitees && countPending(props.event.Invitees)
         const attending = props.event.Invitees && countAttending(props.event.Invitees)
         const notAttending = props.event.Invitees && countNotAttending(props.event.Invitees)
-   
+   const router = useRouter()
+   console.log(router)
     return (
+      
         <div className="mt-12  mx-auto  md:max-w-none">
-                  <div className="relative w-full h-full group cursor-pointer">
+            
+                  <div className="relative w-full h-full group cursor-pointer" onClick={()=>router.push(`../event/${props.event.id}`)}  >
                      <CardOptions/>
                     <div className="relative pb-80 rounded-xl overflow-hidden" style={{backgroundColor: 'rgb(241, 89, 74)'}}>
                       <img
@@ -27,7 +32,7 @@ export const EventCard :FC<EventCardProps> = (props): JSX.Element => { {
                     </div>
                     <div className="relative px-4 -mt-24">
                       <div className="bg-white rounded-xl px-5 py-4 shadow-lg group-hover:shadow-2xl">
-                        <div className="text-lg text-center">{props?.event?.event_name}</div>
+                        <div className="text-lg text-center" >{props?.event?.event_name}</div>
                         <div className="mt-4 mb-2">
                           <div className="flex bg-gray-400 h-2 rounded-md overflow-hidden">
                             <div className="bg-green"></div>
@@ -65,6 +70,8 @@ export const EventCard :FC<EventCardProps> = (props): JSX.Element => { {
                       </div>
                     </div>
                   </div>
+               
                 </div>
+                
     )
 }}

@@ -66,7 +66,10 @@ export const EventDetails: FC<EventDetailsProps> = (props) => {
           </dl>
         </div>
       ) : (
-        <CircularProgress />
+        <div className="w-full text-center h-40 mt-36 mb-60 -ml-20">
+               
+                  <CircularProgress size={110} className="" />{" "}
+                </div>
       )}
     </div>
   );

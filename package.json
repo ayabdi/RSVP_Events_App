@@ -1,12 +1,11 @@
 {
-  "name": "with-typescript-graphql",
+  "name": "RSVP_App",
   "version": "0.1.0",
   "author": "",
   "license": "MIT",
   "scripts": {
-    "codegen": "graphql-let",
     "dev": " next",
-    "build": " next build",
+    "build": "next build",
     "test": " jest",
     "start": "next start"
   },
@@ -38,12 +37,6 @@
     "subscriptions-transport-ws": "^0.9.18"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.17.8",
-    "@graphql-codegen/plugin-helpers": "^1.17.8",
-    "@graphql-codegen/typescript": "^1.17.8",
-    "@graphql-codegen/typescript-operations": "^1.17.8",
-    "@graphql-codegen/typescript-react-apollo": "^2.0.6",
-    "@graphql-codegen/typescript-resolvers": "^1.17.8",
     "@types/next-auth": "^3.13.0",
     "@types/react": "^16.9.46",
     "@types/react-datepicker": "^3.1.8",

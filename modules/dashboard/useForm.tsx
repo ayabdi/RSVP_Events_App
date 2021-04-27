@@ -1,5 +1,4 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { useSession } from "next-auth/client";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { EventsQueryType, insertEvent } from "../queries/eventQueries";
 import { getUser } from "../queries/userQueries";

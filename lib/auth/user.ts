@@ -1,4 +1,3 @@
-import { DocumentNode } from "graphql";
 import { GraphQLClient, gql } from "graphql-request";
 
 

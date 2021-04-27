@@ -4,7 +4,6 @@ import { Disclosure } from "@headlessui/react";
 import DesktopMenu from "./menu/DesktopMenu";
 import MobileMenu from "./menu/MobileMenu";
 import { MenuPanel } from "./menu/MenuPanel";
-import { useSession } from "next-auth/client";
 import { Session } from "next-auth";
 
 export type NavType = {

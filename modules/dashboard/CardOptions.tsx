@@ -1,7 +1,7 @@
 import { FC, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { DotsVerticalIcon } from "@heroicons/react/solid";
-import { FetchResult, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { deleteEvent } from "../queries/eventQueries";
 
 interface CardOptionsProps {

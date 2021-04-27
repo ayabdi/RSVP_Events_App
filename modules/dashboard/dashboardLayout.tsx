@@ -1,5 +1,4 @@
 import React, { FC, Key } from "react";
-import Link from "next/link";
 import Navbar, { NavType } from "../header/navbar";
 import { EventCard } from "./EventCard";
 import { useQuery, useSubscription } from "@apollo/client";
@@ -7,7 +6,7 @@ import { getUser } from "../queries/userQueries";
 import { useSession } from "next-auth/client";
 import { EventsQueryType, getEventsByUser } from "../queries/eventQueries";
 import { CreateButton } from "./CreateButton";
-import { Router, useRouter } from "next/dist/client/router";
+import { useRouter } from "next/dist/client/router";
 import { CircularProgress } from "@material-ui/core";
 
 export const dashboardLayout: FC = (): JSX.Element => {

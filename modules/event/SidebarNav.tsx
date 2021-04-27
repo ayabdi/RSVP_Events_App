@@ -1,7 +1,7 @@
 import { CalendarIcon, ClipboardListIcon, FolderIcon, LogoutIcon } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
-import { Dispatch, FC, SetStateAction, useState } from "react";
-import { NavType } from "../header/navbar";
+import { Dispatch, FC, SetStateAction } from "react";
+
 
 interface SidBarProps {
   navCount: number;
@@ -63,32 +63,6 @@ export const SidebarNav: FC<SidBarProps> = (props) => {
             </div>
           )
         )}
-
-        {/* <div className="relative">
-         
-          <div
-            id="collapse-block-invite-list"
-            className="accordion-item-collapsable"
-          >
-            <div className="flex flex-col my-2 ml-14">
-              <div className="flex items-center py-1 text-sm transition duration-150 ease-in-out font-medium text-purple-lighter">
-                <a href="https://app3.rsvpify.com/events/23941/invite-list">
-                  Invitees
-                </a>{" "}
-              </div>
-              <div className="flex items-center py-1 text-sm transition duration-150 ease-in-out text-gray-300 hover:text-purple-200">
-                <a href="https://app3.rsvpify.com/events/23941/invite-list/import">
-                  Import
-                </a>{" "}
-              </div>
-              <div className="flex items-center py-1 text-sm transition duration-150 ease-in-out text-gray-300 hover:text-purple-200">
-                <a href="https://app3.rsvpify.com/events/23941/invite-list/settings">
-                  Settings
-                </a>{" "}
-              </div>
-            </div>
-          </div> */}
-        {/* </div> */}
       </nav>
     </div>
   );

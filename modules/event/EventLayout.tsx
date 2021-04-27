@@ -1,10 +1,8 @@
-import { useSession } from "next-auth/client";
 import { FC, useState } from "react";
 import { EventsQueryType } from "../queries/eventQueries";
 import { EventDetails } from "./EventDetails";
 import { InviteeList } from "../invites/InviteeList";
 import { SidebarNav } from "./SidebarNav";
-import useForm from "./useForm";
 
 interface InviteeListProps {
   event: EventsQueryType;

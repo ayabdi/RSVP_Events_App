@@ -1,4 +1,4 @@
-import { DocumentNode } from "graphql";
+
 import gql from "graphql-tag";
 import { EventsQueryType } from "./eventQueries";
 

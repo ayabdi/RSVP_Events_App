@@ -24,9 +24,3 @@ export const getUser = (email: String | null | undefined) => {
   return GET_USER
 };
 
-export const deleteUser = () => {
-  const DELETE_USER = gql``;
-};
-export const updateUser = () => {
-  const UPDATE_USER = gql``;
-};

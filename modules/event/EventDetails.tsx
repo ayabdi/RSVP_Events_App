@@ -1,12 +1,10 @@
 import { useSubscription } from "@apollo/client";
-import { PaperClipIcon } from "@heroicons/react/solid";
 import { CircularProgress } from "@material-ui/core";
-import { format, getTime } from "date-fns";
-import { FC, useState } from "react";
+import { format} from "date-fns";
+import { FC} from "react";
 import { EventsQueryType, getEventsByID } from "../queries/eventQueries";
 import { Button } from "./Button";
-import { EventModal } from "./EventModal";
-import useForm from "./useForm";
+
 
 interface EventDetailsProps {
   event: EventsQueryType;

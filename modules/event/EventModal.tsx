@@ -1,13 +1,12 @@
-import { Dispatch, FC, SetStateAction, useRef, Fragment } from "react";
+import {FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { EventForm } from "./EventForm";
-import { Session } from "next-auth";
+
 
 interface EventModalProps {
   isOpen: boolean;
   closeModal: () => void;
   openModal: () => void;
-  session : Session | null | undefined,
   id:number
 }
 

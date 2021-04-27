@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { EventModal } from "./EventModal";
 
-export const Button = (props) => {
+interface EventEditButtonProps {
+    id : number
+}
+export const Button :FC<EventEditButtonProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {

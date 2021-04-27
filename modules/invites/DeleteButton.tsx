@@ -1,8 +1,8 @@
-import { PlusCircleIcon } from "@heroicons/react/outline";
+
 import { TrashIcon } from "@heroicons/react/solid";
 import { FC, useState } from "react";
 import { Delete } from "./DeleteModal";
-import { InviteModal } from "./InviteModal";
+
 
 interface DeleteButtonProps {
   invitee_id: Number | undefined

@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/client";
-import React, { useEffect } from "react";
+import React from "react";
 import Navbar, { NavType } from "../header/navbar";
 import { Hero } from "./hero";
 

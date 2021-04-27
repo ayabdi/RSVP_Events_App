@@ -2,7 +2,6 @@ import { FC} from "react"
 import { countAttending, countNotAttending, countPending } from "../functions/aggregates"
 import { CardOptions } from "./CardOptions";
 import { EventsQueryType } from "../queries/eventQueries";
-import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
 
 interface EventCardProps {

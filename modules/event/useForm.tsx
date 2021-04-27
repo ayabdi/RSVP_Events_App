@@ -1,5 +1,4 @@
-import { useMutation, useQuery, useSubscription } from "@apollo/client";
-import { useSession } from "next-auth/client";
+import { useMutation,useSubscription } from "@apollo/client";
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import {
   EventsQueryType,

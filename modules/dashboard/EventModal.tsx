@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useRef, Fragment } from "react";
+import { FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { EventForm } from "./EventForm";
 import { Session } from "next-auth";
@@ -11,7 +11,6 @@ interface EventModalProps {
 }
 
 export const EventModal: FC<EventModalProps> = (props): JSX.Element => {
-  const cancelButtonRef = useRef();
   
   return (
     <>

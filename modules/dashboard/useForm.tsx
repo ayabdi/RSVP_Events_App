@@ -15,6 +15,7 @@ const useForm = (session :any ) => {
     event_desc: " ",
     country: " ",
     address: " ",
+    duration: " ",
     zip: " ",
     state:  " ",
     city: ' ',

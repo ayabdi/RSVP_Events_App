@@ -12,13 +12,13 @@ interface EventDetailsProps {
   event: EventsQueryType;
 }
 export const EventDetails: FC<EventDetailsProps> = (props) => {
-  const { data, loading } = useSubscription(getEventsByID(7));
+  const { data, loading } = useSubscription(getEventsByID(props.event.id));
   //   const eventData = data.RSVP_Events[0]
   const time = data?.RSVP_Events[0].event_date
     .toString()
     .split("T")[1]
     .slice(0, 5);
-  
+
   const details = [
     { title: "Event Name:", content: data?.RSVP_Events[0].event_name },
     { title: "Event Description:", content: data?.RSVP_Events[0].event_desc },
@@ -33,20 +33,21 @@ export const EventDetails: FC<EventDetailsProps> = (props) => {
   ];
 
   return (
-    <div className="bg-white shadow overflow-hidden sm:rounded-lg flex flex-col z-100 justify-around ml-60 md:ml-64 ">
+    <div className="bg-white overflow-hidden sm:rounded-lg flex flex-col z-100 justify-around ml-60 md:ml-64 ">
       <div className="flex grid grid-cols-2 px-4 py-5 sm:px-6">
         <div className="flex flex-col w-1/2">
           <h3 className="text-lg leading-6 font-medium text-gray-900">
-            Event Information
+            Event Details
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            Personal details and application.
+            Event information and location
           </p>
         </div>
         <Button id={data?.RSVP_Events[0].id} />
       </div>
-      {!loading ? (
+     
         <div className="border-t border-gray-200 ">
+        {!loading ? (
           <dl className="">
             {details.map((detail, itemIdx) => (
               <div
@@ -64,13 +65,13 @@ export const EventDetails: FC<EventDetailsProps> = (props) => {
               </div>
             ))}
           </dl>
-        </div>
-      ) : (
-        <div className="w-full text-center h-40 mt-36 mb-60 -ml-20">
-               
+            ) : (
+                <div className="w-full text-center h-40 mt-36 mb-60 -ml-20">
                   <CircularProgress size={110} className="" />{" "}
                 </div>
-      )}
+              )}
+        </div>
+    
     </div>
   );
 };

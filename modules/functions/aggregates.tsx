@@ -1,8 +1,9 @@
-import { EventsType } from "../../lib/queries/eventQueries";
-import { InviteeObject } from "../../lib/queries/inviteeQueries";
+
+import { InviteeObjectType } from "../queries/inviteeQueries";
 
 
-export const countPending = (events : InviteeObject[]) => {
+
+export const countPending = (events : InviteeObjectType[]) => {
     var count = 0
     events.map((e) => {
         if (e.status === 'sent') {
@@ -12,7 +13,7 @@ export const countPending = (events : InviteeObject[]) => {
     return count
 }
 
-export const countAttending= (events : InviteeObject[]) => {
+export const countAttending= (events : InviteeObjectType[]) => {
     var count = 0
     events.map((e) => {
         if (e.status === 'attending') {
@@ -21,10 +22,10 @@ export const countAttending= (events : InviteeObject[]) => {
     })
     return count
 }
-export const countNotAttending = (events : InviteeObject[]) => {
+export const countNotAttending = (events : InviteeObjectType[]) => {
     var count = 0
     events.map((e) => {
-        if (e.status === 'not') {
+        if (e.status === 'not attending') {
            count++
         }
     })

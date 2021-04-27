@@ -18,7 +18,7 @@ type SidBarType = {
 export const SidebarNav: FC<SidBarProps> = (props) => {
   const navigation: SidBarType[] = [
     {icon: <HomeIcon className ='h-6'/>, title: "Home", href: "../" },
-    { icon: <FolderIcon className ='h-6'/>, title: "Dashboard", href: "../" },
+    { icon: <FolderIcon className ='h-6'/>, title: "Dashboard", href: "../dashboard" },
     {icon: <ClipboardListIcon className ='h-6'/>,  title: "Event Details", href: "/", onClick: () => props.setNavCount(2) },
     {icon: <CalendarIcon className ='h-6'/>,  title: "Invite List", href: "/" , onClick:()=>props.setNavCount(3)},
     { icon: <LogoutIcon className ='h-6'/>, title: "Sign Out", href: "../" },

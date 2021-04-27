@@ -58,6 +58,23 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
                       className="mt-1 block w-full py-1 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                   </div>
+                  <div className="col-span-6 sm:col-span-4">
+                    <label
+                      htmlFor="event_desc"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Description*
+                    </label>
+                    <input
+                      type="text"
+                      name="event_desc"
+                      value={eventData.event_desc}
+                      id="event_desc"
+                      autoComplete="given-name"
+                      onChange={handleChange}
+                      className="mt-1 block w-full py-1 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
+                  </div>
 
                   <div className="col-span-6 sm:col-span-4">
                     <label
@@ -92,6 +109,23 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
                       className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm flex"
                     />
                   </div>
+                  <div className="col-span-6 sm:col-span-4">
+                  <label
+                    htmlFor="duration"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Duration*
+                  </label>
+                  <input
+                    type="text"
+                    name="duration"
+                    value={eventData.duration}
+                    id="duration"
+                    autoComplete="given-name"
+                    onChange={handleChange}
+                    className="mt-1 block w-full py-1 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                </div>
 
                   <div className="col-span-6 sm:col-span-4">
                     <label

@@ -17,6 +17,7 @@ const useForm = (id: number) => {
     event_type: " ",
     event_desc: " ",
     country: " ",
+    duration: " ",
     address: " ",
     zip: " ",
     state: " ",
@@ -39,9 +40,8 @@ const useForm = (id: number) => {
       zip: data?.RSVP_Events[0].zip,
       state: data?.RSVP_Events[0].state,
       city: data?.RSVP_Events[0].city,
-     
-      id: 7,
-      duration: 2
+      id: data?.RSVP_Events[0].id,
+      duration: data?.RSVP_Events[0].duration
     };
     setEventData(initialState);
     if(data){

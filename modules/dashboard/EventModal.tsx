@@ -15,7 +15,7 @@ export const EventModal: FC<EventModalProps> = (props): JSX.Element => {
   
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center"></div>
+      <div className="fixed inset-0 flex items-center justify-center"  style={!props.isOpen ?{zIndex:'-10'} : undefined}></div>
       <Transition show={props.isOpen} as={Fragment}>
         <Dialog
           as="div"

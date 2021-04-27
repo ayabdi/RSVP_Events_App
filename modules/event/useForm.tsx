@@ -22,7 +22,6 @@ const useForm = (id: number) => {
     zip: " ",
     state: " ",
     city: " ",
-    host_id: 0,
     name: "",
     email: "",
   };

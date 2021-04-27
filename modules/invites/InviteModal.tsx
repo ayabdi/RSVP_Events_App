@@ -1,19 +1,21 @@
-import { Dispatch, FC, SetStateAction, useRef, Fragment } from "react";
+import { FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { InviteForm } from "./InviteForm";
+import { InviteForm } from "./inviteForm";
 
 interface InviteModalProps {
   isOpen: boolean;
   closeModal: () => void;
   openModal: () => void;
-  event_id: number
+  event_id: number;
 }
 
 export const InviteModal: FC<InviteModalProps> = (props): JSX.Element => {
   return (
     <>
-    
-    <div className='fixed inset-0 flex items-center justify-center' style={!props.isOpen ?{zIndex:'-10'} : undefined}></div>
+      <div
+        className="fixed inset-0 flex items-center justify-center"
+        style={!props.isOpen ? { zIndex: "-10" } : undefined}
+      ></div>
       <Transition show={props.isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -57,7 +59,10 @@ export const InviteModal: FC<InviteModalProps> = (props): JSX.Element => {
                 >
                   Edit Event
                 </Dialog.Title>
-                <InviteForm  closeModal={props.closeModal} event_id = {props.event_id}/>
+                <InviteForm
+                  closeModal={props.closeModal}
+                  event_id={props.event_id}
+                />
               </div>
             </Transition.Child>
           </div>

@@ -3,7 +3,7 @@ import { FC, useState } from "react";
 import { InviteModal } from "./InviteModal";
 
 interface InviteButtonProps {
-  event_id: Number | undefined
+  event_id: number 
 }
 export const Button : FC<InviteButtonProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,11 +1,11 @@
 import { useSession } from "next-auth/client";
 import React, { useEffect } from "react";
-import Navbar from "../header/navbar";
+import Navbar, { NavType } from "../header/navbar";
 import { Hero } from "./hero";
 
 export const Landing = () => {
   const [session, loading] = useSession();
-  const navigation = [
+  const navigation : NavType= [
     {
       title: "Home",
       href: "#",
@@ -21,9 +21,8 @@ export const Landing = () => {
     },
   ];
 
-  if (session) {
-    navigation.push({ title: "Dashboard", href: "/dashboard" });
-  }
+  if (session) navigation.push({ title: "Dashboard", href: "/dashboard" });
+  
 
   return (
     <>

@@ -4,7 +4,7 @@ import { InviteeObjectType } from "./inviteeQueries";
 import { UserType } from "./userQueries";
 
 export type EventsQueryType = {
-  id?: Number;
+  id?: number;
   event_name: string;
   event_date: Date;
   duration:string,
@@ -12,7 +12,7 @@ export type EventsQueryType = {
   event_type: string;
   country: string;
   address: string;
-  host_id: Number;
+  host_id?: Number;
   city?: string;
   state?: string;
   zip?: string;

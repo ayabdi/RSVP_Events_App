@@ -8,7 +8,7 @@ import { useSession } from "next-auth/client";
 import { Session } from "next-auth";
 
 export type NavType = {
-  title: String;
+  title: string;
   href: string;
 }[];
 

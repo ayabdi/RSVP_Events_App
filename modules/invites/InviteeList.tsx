@@ -1,5 +1,4 @@
 import { useSubscription } from "@apollo/client";
-import { TrashIcon } from "@heroicons/react/solid";
 import { CircularProgress } from "@material-ui/core";
 import { format } from "date-fns";
 import { FC, Key } from "react";
@@ -28,7 +27,7 @@ export const InviteeList: FC<InviteeListProps> = (props): JSX.Element => {
         <div className="my-40 ">
           <div className="py-2  inline-block md:w-full xl:w-4/5 sm:px-6 md:px-8">
             <div className=" flex justify-end w-full">
-              <Button event_id={props.event.id} />
+              {props.event.id && <Button event_id={props.event.id} />}
             </div>
 
             {loading ? (
@@ -74,13 +73,21 @@ export const InviteeList: FC<InviteeListProps> = (props): JSX.Element => {
                           </div>
                         </td>
                         <td className="px-6 py-4 text-left  whitespace-nowrap">
-                          <span className={`px-5 py-1 inline-flex text-xs   lg:text-sm leading-5 font-semibold rounded-full ${invitee.status === 'sent'? "bg-yellow-100 text-yellow-800 uppercase" : invitee.status === 'attending'? "bg-green-100 text-green-800 uppercase" : "bg-red-100 text-red-800 uppercase" } `}>
+                          <span
+                            className={`px-5 py-1 inline-flex text-xs   lg:text-sm leading-5 font-semibold rounded-full ${
+                              invitee.status === "sent"
+                                ? "bg-yellow-100 text-yellow-800 uppercase"
+                                : invitee.status === "attending"
+                                ? "bg-green-100 text-green-800 uppercase"
+                                : "bg-red-100 text-red-800 uppercase"
+                            } `}
+                          >
                             {invitee.status}
                           </span>
                         </td>
                         <td className="px-6 py-4 flex whitespace-nowrap text-right text-sm font-medium mt-2">
-                        <DeleteButton invitee_id = {invitee.id}/>
-                           </td>
+                          <DeleteButton invitee_id={invitee.id} />
+                        </td>
                       </tr>
                     ))}
                   </tbody>

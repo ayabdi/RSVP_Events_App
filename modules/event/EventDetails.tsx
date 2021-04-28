@@ -1,7 +1,6 @@
 import { useSubscription } from "@apollo/client";
 import { CircularProgress } from "@material-ui/core";
 import { format} from "date-fns";
-import { Router } from "next/dist/client/router";
 import { FC} from "react";
 import { getEventsByID } from "../queries/eventQueries";
 import { Button } from "./Button";
@@ -14,7 +13,6 @@ interface EventDetailsProps {
 export const EventDetails: FC<EventDetailsProps> = (props) => { 
     
   const { data, loading } = useSubscription(getEventsByID(props.event_id));
-  //   const eventData = data.RSVP_Events[0]
 
     
   const time = data?.RSVP_Events[0].event_date

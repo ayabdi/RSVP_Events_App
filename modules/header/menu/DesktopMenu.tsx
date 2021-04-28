@@ -22,7 +22,7 @@ const DesktopMenu: FC<DesktopMenuProps> = (props ): JSX.Element => {
 
         {!props.session ? (
           <a
-            href={`/api/auth/signin`}
+            href='/'
             className="font-medium text-indigo-600 hover:text-indigo-500"
             onClick={(e) => {
               e.preventDefault();

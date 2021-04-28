@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import { CSSProperties, FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { InviteForm } from "./inviteForm";
 
@@ -10,11 +10,13 @@ interface InviteModalProps {
 }
 
 export const InviteModal: FC<InviteModalProps> = (props): JSX.Element => {
+    const zIndexOpen : CSSProperties = {zIndex:'-10'};
+    const zIndexClose : CSSProperties = {zIndex:'0'};
   return (
     <>
       <div
         className="fixed inset-0 flex items-center justify-center"
-        style={!props.isOpen ? { zIndex: "-10" } : undefined}
+        style={!props.isOpen ? zIndexOpen: zIndexClose}
       ></div>
       <Transition show={props.isOpen} as={Fragment}>
         <Dialog

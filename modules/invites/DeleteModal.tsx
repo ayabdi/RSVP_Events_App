@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import { CSSProperties, FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useMutation } from "@apollo/client";
 import { deleteInvite } from "../queries/inviteeQueries";
@@ -18,11 +18,15 @@ export const Delete: FC<DeleteModalProps> = (props): JSX.Element => {
       variables: { id: props.itemToDeletedId },
     });
   };
+
+  const zIndexOpen : CSSProperties = {zIndex:'-10'};
+  const zIndexClose : CSSProperties = {zIndex:'0'};
+  
   return (
     <>
       <div
         className="fixed inset-0 flex items-center justify-center"
-        style={!props.isOpen ? { zIndex: "-10" } : undefined}
+        style={!props.isOpen ? zIndexOpen: zIndexClose}
       ></div>
 
       <Transition show={props.isOpen} as={Fragment}>

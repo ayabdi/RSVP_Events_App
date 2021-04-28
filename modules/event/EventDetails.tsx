@@ -1,29 +1,33 @@
 import { useSubscription } from "@apollo/client";
 import { CircularProgress } from "@material-ui/core";
 import { format} from "date-fns";
+import { Router } from "next/dist/client/router";
 import { FC} from "react";
-import { EventsQueryType, getEventsByID } from "../queries/eventQueries";
+import { getEventsByID } from "../queries/eventQueries";
 import { Button } from "./Button";
 
 
 interface EventDetailsProps {
-  event: EventsQueryType;
+  event_id: number ,
+  router: any
 }
-export const EventDetails: FC<EventDetailsProps> = (props) => {
-  const { data, loading } = useSubscription(getEventsByID(props.event.id));
+export const EventDetails: FC<EventDetailsProps> = (props) => { 
+    
+  const { data, loading } = useSubscription(getEventsByID(props.event_id));
   //   const eventData = data.RSVP_Events[0]
+
+    
   const time = data?.RSVP_Events[0].event_date
     .toString()
     .split("T")[1]
     .slice(0, 5);
-
+  
   const details = [
     { title: "Event Name:", content: data?.RSVP_Events[0].event_name },
     { title: "Event Description:", content: data?.RSVP_Events[0].event_desc },
     {
       title: "Event Date:",
-      content:data?.RSVP_Events[0].event_date ? format(data?.RSVP_Events[0].event_date, "DD/MM/YYYY") 
-      : " ",
+      content:data?.RSVP_Events[0].event_date && format(new Date(data?.RSVP_Events[0].event_date), "dd/MM/yyyy"),
     },
     { title: "Event Time:", content: time },
     { title: "Event Type:", content: data?.RSVP_Events[0].event_type },
@@ -31,7 +35,7 @@ export const EventDetails: FC<EventDetailsProps> = (props) => {
     { title: "Hosted By:", content: data?.RSVP_Events[0].User?.name },
   ];
 
-  return (
+  return  (
     <div className="bg-white overflow-hidden sm:rounded-lg flex flex-col z-100 justify-around ml-60 md:ml-64 ">
       <div className="flex grid grid-cols-2 px-4 py-5 sm:px-6">
         <div className="flex flex-col w-1/2">

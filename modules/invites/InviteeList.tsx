@@ -2,32 +2,36 @@ import { useSubscription } from "@apollo/client";
 import { CircularProgress } from "@material-ui/core";
 import { format } from "date-fns";
 import { FC, Key } from "react";
-import { EventsQueryType } from "../queries/eventQueries";
 import { getInviteesByEventId } from "../queries/inviteeQueries";
 import { Button } from "./AddInviteButton";
 import { DeleteButton } from "./DeleteButton";
 
 interface InviteeListProps {
-  event: EventsQueryType;
+  event_id: number;
 }
 export const InviteeList: FC<InviteeListProps> = (props): JSX.Element => {
   const titles = ["Name", "Date Invited", "Status", " "];
 
   const { data, loading } = useSubscription(
-    getInviteesByEventId(props.event.id)
+    getInviteesByEventId(props.event_id)
   );
+  console.log(data);
+
+  const eventData = data?.RSVP_Invitees[0]?.Event;
   return (
     <div className="flex flex-col  justify-around ml-60 md:ml-72 xl:ml-96">
       <div className="flex flex-col w-full ml-0 ">
         <header className=" fixed md:flex inset-x-0 ml-0 md:ml-64 px-8 items-center bg-white shadow h-20 -z-50">
-          <h1 className="flex items-center font-semibold text-gray-800 text-xl ml-8">
-            {props.event.event_name} {">"} Invite List
-          </h1>
+          {eventData && (
+            <h1 className="flex items-center font-semibold text-gray-800 text-xl ml-8">
+              {eventData.event_name} {">"} Invite List
+            </h1>
+          )}
         </header>
         <div className="my-40 ">
           <div className="py-2  inline-block md:w-full xl:w-4/5 sm:px-6 md:px-8">
             <div className=" flex justify-end w-full">
-              {props.event.id && <Button event_id={props.event.id} />}
+              {eventData && <Button event_id={eventData.id} />}
             </div>
 
             {loading ? (
@@ -69,7 +73,7 @@ export const InviteeList: FC<InviteeListProps> = (props): JSX.Element => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900">
-                            {format(invitee.date_invited, "DD/MM/YYYY")}
+                            { format(new Date(invitee.date_invited), 'dd/MM/yyyy')}
                           </div>
                         </td>
                         <td className="px-6 py-4 text-left  whitespace-nowrap">

@@ -1,67 +1,44 @@
 import { gql } from "graphql-request";
 import { graphQLClient } from "../../lib/auth/user";
 import { EventLayout } from "../../modules/event/EventLayout";
-import { EventsQueryType } from "../../modules/queries/eventQueries";
+import { initializeApollo } from "../../lib/apollo";
+import { getSession } from "next-auth/client";
 
-export const getStaticPaths = async () => {
+
+export async function getServerSideProps(context: any) {
+  const apolloClient = await initializeApollo();
+  const session = await getSession(context);
+
+  const id = context.req.url.toString().split("/")[2];
   const GET_Events = gql`
-    query MyQuery {
-      RSVP_Events {
+     query MyQuery {
+      RSVP_Events_by_pk(id: ${id}) {
         id
-      }
-    }
-  `;
+         User {
+           email
+         }
+       }
+     }
+   `;
+
   const data = await graphQLClient.request(GET_Events);
 
-  const paths = data.RSVP_Events.map((event: EventsQueryType) => {
-    return {
-      params: { id: event.id?.toString() },
-    };
-  });
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-export const getStaticProps = async (context : any) => {
-  const id = context.params.id;
-  const GET_Events = gql`
-    query MyQuery {
-        RSVP_Events(where: {id: {_eq: ${id}}}) {
-            event_name
-            event_type
-            host_id
-            id
-            event_date
-            event_desc
-            duration
-            zip
-            city
-            state
-            country
-            address
-            created_at
-            Invitees {
-              name
-              status
-              email_address
-              date_invited
-            }
-            User {
-                name
-                email
-              }
-          }
-        }
-  `;
-  const data = await graphQLClient.request(GET_Events);
-  const event :EventsQueryType = data.RSVP_Events[0]
+  var isAuthorisedUser: boolean = false;
+  if (session?.user.email === data?.RSVP_Events_by_pk?.User.email)
+    isAuthorisedUser = true;
+  
+  let event_id : string | null = null
+  if (data?.RSVP_Events_by_pk) event_id = data?.RSVP_Events_by_pk.id
   
   return {
-    props:  {event} 
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+      session: await getSession(context),
+      isAuthorisedUser,
+      event_id
+    },
   };
-};
+}
 
 
 export default EventLayout;

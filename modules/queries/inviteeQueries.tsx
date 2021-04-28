@@ -23,6 +23,10 @@ export const getInviteesByEventId = (id : Number | undefined) => {
           email_address
           date_invited
           status
+          Event {
+            id
+            event_name
+          }
         }
       }
     `

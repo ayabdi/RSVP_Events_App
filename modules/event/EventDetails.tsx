@@ -22,7 +22,8 @@ export const EventDetails: FC<EventDetailsProps> = (props) => {
     { title: "Event Description:", content: data?.RSVP_Events[0].event_desc },
     {
       title: "Event Date:",
-      content: format(data?.RSVP_Events[0].event_date, "DD/MM/YYYY"),
+      content:data?.RSVP_Events[0].event_date ? format(data?.RSVP_Events[0].event_date, "DD/MM/YYYY") 
+      : " ",
     },
     { title: "Event Time:", content: time },
     { title: "Event Type:", content: data?.RSVP_Events[0].event_type },

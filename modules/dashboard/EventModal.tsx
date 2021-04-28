@@ -11,8 +11,8 @@ interface EventModalProps {
 }
 
 export const EventModal: FC<EventModalProps> = (props): JSX.Element => {
-  const zIndexOpen : CSSProperties = {zIndex:'-10'};
-  const zIndexClose : CSSProperties = {zIndex:'0'};
+  const zIndexOpen : CSSProperties = {zIndex:-10};
+  const zIndexClose : CSSProperties = {zIndex:0};
   
   return (
     <>

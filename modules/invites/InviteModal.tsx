@@ -10,8 +10,8 @@ interface InviteModalProps {
 }
 
 export const InviteModal: FC<InviteModalProps> = (props): JSX.Element => {
-    const zIndexOpen : CSSProperties = {zIndex:'-10'};
-    const zIndexClose : CSSProperties = {zIndex:'0'};
+    const zIndexOpen : CSSProperties = {zIndex:-10};
+    const zIndexClose : CSSProperties = {zIndex:0};
   return (
     <>
       <div

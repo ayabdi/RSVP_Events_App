@@ -13,11 +13,13 @@ interface StatsuResponseProps {
     response : String,
     message : String
 }
+
+
 const StatusResponse : FC<StatsuResponseProps> = (props) => {
   const router = useRouter();
   
   const { token } = router.query;
-  let decodedToken: Object;
+  let decodedToken: any
   let updateData: UpdateInviteStatus | undefined = undefined
  
   const [mutate] = useMutation(updateInviteStatus());
@@ -31,7 +33,7 @@ const StatusResponse : FC<StatsuResponseProps> = (props) => {
         id: decodedToken.invite_id,
         status: props.response,
       };
-      console.log(updateData)
+    
       mutate({
         variables: updateData,
       });

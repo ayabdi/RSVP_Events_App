@@ -37,7 +37,7 @@ event management platform
  <img width="638" alt="Webp net-resizeimage (16)" src="https://user-images.githubusercontent.com/46926470/116749522-bdc27f00-aa09-11eb-8e43-259af085e327.png">
  <img width="638"  alt="Webp net-resizeimage (9)" src="https://user-images.githubusercontent.com/46926470/116750183-bf407700-aa0a-11eb-8a9d-e3ab20fac95d.png"><br/>
  
- 3.Event Details component with edit functionality
+ 3.Event Details component with edit functionality <br/>
   <img width="638" alt="Webp net-resizeimage (1)" src="https://user-images.githubusercontent.com/46926470/116750037-856f7080-aa0a-11eb-8f35-b55688205c1e.png">,<br/><br/>
  4. Invite List component. Invitation email on save and is sent after connecting with nodemailer serveless function on AWS Lambda <br/><br/>
  <img width="638" alt="Webp net-resizeimage (2)" src="https://user-images.githubusercontent.com/46926470/116764306-603e2a80-aa29-11eb-9079-12fc4b644cc4.png"><br/> <br/>

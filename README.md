@@ -1,8 +1,9 @@
 
 
 <!-- TABLE OF CONTENTS -->
+<br/>
 <details open="open">
-  <summary>Table of Contents</summary>
+  <summary>Table of Contents</summary> <br/>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>

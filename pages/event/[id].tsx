@@ -14,6 +14,7 @@ export async function getServerSideProps(context: any) {
      query MyQuery {
       RSVP_Events_by_pk(id: ${id}) {
         id
+        event_name
          User {
            email
          }
@@ -27,15 +28,15 @@ export async function getServerSideProps(context: any) {
   if (session?.user.email === data?.RSVP_Events_by_pk?.User.email)
     isAuthorisedUser = true;
   
-  let event_id : string | null = null
-  if (data?.RSVP_Events_by_pk) event_id = data?.RSVP_Events_by_pk.id
+  let event: Object | null = null
+  if (data?.RSVP_Events_by_pk) event = data?.RSVP_Events_by_pk
   
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),
       session: await getSession(context),
       isAuthorisedUser,
-      event_id
+      event
     },
   };
 }

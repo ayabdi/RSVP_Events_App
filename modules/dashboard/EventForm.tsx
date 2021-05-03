@@ -6,23 +6,33 @@ import { Session } from "next-auth/index";
 
 interface EventFormProps {
   closeModal: () => void;
-  session: Session | null | undefined
-  
+  session: Session | null | undefined;
 }
 export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
-    
-  const { handleChange, onSubmit, eventData, setEventData ,handleSelectChange, submitted} = useForm(props.session);
+  const {
+    handleChange,
+    onSubmit,
+    eventData,
+    setEventData,
+    handleSelectChange,
+    submitted,
+  } = useForm(props.session);
   const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
-    setEventData(eventData => ({...eventData, event_date : startDate}))
+    setEventData((eventData) => ({ ...eventData, event_date: startDate }));
   }, [startDate]);
 
   useEffect(() => {
-    if(submitted) {
-        props.closeModal()
+    if (submitted) {
+      props.closeModal();
     }
-  }, [submitted])
+  }, [submitted]);
+
+
+    const durationOptions=[];
+    for (let i = 0; i <= 24; i++) durationOptions.push(i);
+ 
 
   return (
     <div>
@@ -52,22 +62,22 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
                   />
                 </div>
                 <div className="col-span-6 sm:col-span-4">
-                    <label
-                      htmlFor="event_desc"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Description*
-                    </label>
-                    <input
-                      type="text"
-                      name="event_desc"
-                      value={eventData.event_desc}
-                      id="event_desc"
-                      autoComplete="given-name"
-                      onChange={handleChange}
-                      className="mt-1 block w-full py-1 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    />
-                  </div>
+                  <label
+                    htmlFor="event_desc"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Description*
+                  </label>
+                  <input
+                    type="text"
+                    name="event_desc"
+                    value={eventData.event_desc}
+                    id="event_desc"
+                    autoComplete="given-name"
+                    onChange={handleChange}
+                    className="mt-1 block w-full py-1 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                </div>
 
                 <div className="col-span-6 sm:col-span-4">
                   <label
@@ -107,17 +117,20 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
                     htmlFor="duration"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Duration*
+                    Duration (hrs)*
                   </label>
-                  <input
-                    type="text"
+                  <select
                     name="duration"
                     value={eventData.duration}
                     id="duration"
                     autoComplete="given-name"
-                    onChange={handleChange}
+                    onChange={handleSelectChange}
                     className="mt-1 block w-full py-1 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
+                  >
+                    {durationOptions.map((option, idx) =>(
+                      <option key={idx}>{option}</option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className="col-span-6 sm:col-span-4">
@@ -226,8 +239,7 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
             <button
               type="submit"
               className="inline-flex justify-center py-2 px-4 mx-1 w-20 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-             
-           >
+            >
               Save
             </button>
           </div>

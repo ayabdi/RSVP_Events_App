@@ -20,9 +20,9 @@ export const EventCard :FC<EventCardProps> = (props): JSX.Element => { {
       
         <div className="mt-12  mx-auto  md:max-w-none">
             
-                  <div className="relative w-full h-full group cursor-pointer" onClick={()=>router.push(`../event/${props.event.id}`)}  >
+                  <div className="relative w-full h-full group cursor-pointer"   >
                      <CardOptions event_id = {props.event.id}/>
-                    <div className="relative pb-80 rounded-xl overflow-hidden" style={{backgroundColor: 'rgb(241, 89, 74)'}}>
+                    <div className="relative pb-80 rounded-xl overflow-hidden" onClick={()=>router.push(`../event/${props.event.id}`)}  style={{backgroundColor: 'rgb(241, 89, 74)'}}>
                       <img
                         src="https://rsvpify-v3.s3.amazonaws.com/events/92/wall/images/507/C3aOSfzevRQKLN7S.png"
                         alt=""

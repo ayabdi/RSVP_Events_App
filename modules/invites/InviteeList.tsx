@@ -7,13 +7,13 @@ import { Button } from "./AddInviteButton";
 import { DeleteButton } from "./DeleteButton";
 
 interface InviteeListProps {
-  event_id: number;
+  event: any;
 }
 export const InviteeList: FC<InviteeListProps> = (props): JSX.Element => {
   const titles = ["Name", "Date Invited", "Status", " "];
 
   const { data, loading } = useSubscription(
-    getInviteesByEventId(props.event_id)
+    getInviteesByEventId(props.event.id)
   );
   console.log(data);
 
@@ -22,16 +22,16 @@ export const InviteeList: FC<InviteeListProps> = (props): JSX.Element => {
     <div className="flex flex-col  justify-around ml-60 md:ml-72 xl:ml-96">
       <div className="flex flex-col w-full ml-0 ">
         <header className=" fixed md:flex inset-x-0 ml-0 md:ml-64 px-8 items-center bg-white shadow h-20 -z-50">
-          {eventData && (
+          {props.event && (
             <h1 className="flex items-center font-semibold text-gray-800 text-xl ml-8">
-              {eventData.event_name} {">"} Invite List
+              {props.event?.event_name} {">"} Invite List
             </h1>
           )}
         </header>
         <div className="my-40 ">
           <div className="py-2  inline-block md:w-full xl:w-4/5 sm:px-6 md:px-8">
             <div className=" flex justify-end w-full">
-              {eventData && <Button event_id={eventData.id} />}
+              {props.event && <Button event_id={props.event.id} />}
             </div>
 
             {loading ? (
@@ -78,7 +78,7 @@ export const InviteeList: FC<InviteeListProps> = (props): JSX.Element => {
                         </td>
                         <td className="px-6 py-4 text-left  whitespace-nowrap">
                           <span
-                            className={`px-5 py-1 inline-flex text-xs   lg:text-sm leading-5 font-semibold rounded-full ${
+                            className={`px-5 py-1 -ml-2 inline-flex text-xs   lg:text-sm leading-5 font-semibold rounded-full ${
                               invitee.status === "sent"
                                 ? "bg-yellow-100 text-yellow-800 uppercase"
                                 : invitee.status === "attending"

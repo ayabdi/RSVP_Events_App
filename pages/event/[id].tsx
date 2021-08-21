@@ -1,6 +1,6 @@
 import { gql } from "graphql-request";
 import { graphQLClient } from "../../lib/auth/user";
-import { EventLayout } from "../../modules/event/EventLayout";
+import { EventLayout } from "../../modules/event/Index";
 import { initializeApollo } from "../../lib/apollo";
 import { getSession } from "next-auth/client";
 

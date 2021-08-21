@@ -1,7 +1,7 @@
 import { useRouter } from "next/dist/client/router";
 import jwt from "jsonwebtoken";
 import { useMutation } from "@apollo/client";
-import { updateInviteStatus } from "../queries/inviteeQueries";
+import { updateInviteStatus } from "../../graphql/inviteeQueries";
 import { FC} from "react";
 
 interface UpdateInviteStatus {

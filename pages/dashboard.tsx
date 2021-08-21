@@ -1,4 +1,4 @@
 
-import { dashboardLayout } from "../modules/dashboard/dashboardLayout";
+import { DashboardLayout } from "../modules/dashboard/Index";
 
-export default dashboardLayout
+export default DashboardLayout

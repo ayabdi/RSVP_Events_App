@@ -114,8 +114,6 @@ Project Link: [https://github.com/ay_abdi/RSVP_Events_App](https://github.com/at
 * [Next Auth](https://)
 * [Hasura](https://)
 * [Tailwind CSS](https://)
-* [Material UI](https://)
-* [Headless UI](https://)
 * [Vercel](https://)
 
 

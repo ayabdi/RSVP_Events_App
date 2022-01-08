@@ -34,10 +34,10 @@ const useForm = (event_id: number) => {
       });
       setSubmitted(true);
     } catch (error) {
-      console.error(error.response.data);
+      console.error(error);
     }
   };
-
+  
   //triggering Api Gateway to labda function for sending invitation emails
 
   const config = {

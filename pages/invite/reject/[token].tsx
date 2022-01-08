@@ -1,4 +1,4 @@
-import StatusResponse from "../../../modules/shared_components/StatusResponse";
+import StatusResponse from "../../../modules/shared_components/StatusResponse/StatusResponse";
 
 const Invite = () => {
   return (

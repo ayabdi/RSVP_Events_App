@@ -1,7 +1,7 @@
 //import gql from "graphql-tag";
 
 
-import { useQuery, gql , DocumentNode} from '@apollo/client';
+import { gql , DocumentNode} from '@apollo/client';
 
 export type UserType ={
   name :string,

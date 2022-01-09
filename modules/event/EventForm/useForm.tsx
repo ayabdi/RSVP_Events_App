@@ -1,15 +1,13 @@
-import { useMutation,useSubscription } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import {
   EventsQueryType,
-  getEventsByID,
-  updateEvent,
+ UPDATE_EVENT
 } from "../../../graphql/eventQueries";
 
-const useForm = (id: number) => {
-  const { data } = useSubscription(getEventsByID(id));
- 
 
+const useForm = ( eventData: EventsQueryType) => {
+  
   var initialState: EventsQueryType = {
     event_name: " ",
     event_date: new Date(),
@@ -24,42 +22,30 @@ const useForm = (id: number) => {
     name: "",
     email: "",
   };
-  const [eventData, setEventData] = useState<EventsQueryType>(initialState);
+  const [formData, setFormData] = useState<EventsQueryType>(initialState);
   const [loading, setloading] = useState(false)
   useEffect(() => {
     setloading(true)
-    initialState = {
-      event_name: data?.RSVP_Events[0].event_name,
-      event_date: data?.RSVP_Events[0].event_date,
-      event_type: data?.RSVP_Events[0].event_type,
-      event_desc: data?.RSVP_Events[0].event_desc,
-      country: data?.RSVP_Events[0].country,
-      address: data?.RSVP_Events[0].address,
-      zip: data?.RSVP_Events[0].zip,
-      state: data?.RSVP_Events[0].state,
-      city: data?.RSVP_Events[0].city,
-      id: data?.RSVP_Events[0].id,
-      duration: data?.RSVP_Events[0].duration
-    };
-    setEventData(initialState);
-    if(data){
+    const {User, __typename, Invitees, host_id, created_at, ...rest} = eventData
+    setFormData(rest);
+    if(eventData){
       setloading(false)
     }
-  }, [data]);
+  }, [eventData]);
 
-  const [mutate] = useMutation(updateEvent());
+  const [mutate] = useMutation(UPDATE_EVENT);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setEventData({
-      ...eventData,
+    setFormData({
+      ...formData,
       [name]: value,
     });
   };
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
-    setEventData({
-      ...eventData,
+    setFormData({
+      ...formData,
       [name]: value,
     });
   };
@@ -70,19 +56,19 @@ const useForm = (id: number) => {
     setSubmitted(false);
     try {
       mutate({
-        variables: eventData,
+        variables: formData,
       });
       setSubmitted(true);
     } catch (error) {
-      console.error(error.response.data);
+      console.error(error);
     }
   };
   return {
     handleChange,
     handleSelectChange,
     onSubmit,
-    eventData,
-    setEventData,
+    setFormData,
+    formData,
     submitted,
     loading
   };

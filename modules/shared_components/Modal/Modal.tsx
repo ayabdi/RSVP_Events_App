@@ -1,27 +1,23 @@
-import { CSSProperties, FC, Fragment } from "react";
+import {FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { EventForm } from "../EventForm/EventForm";
-import { Session } from "next-auth";
 
-interface EventModalProps {
+interface ModalProps {
   isOpen: boolean;
-  handleModal : ()=> void;
+  handleModal : () => void
 }
 
-export const EventModal: FC<EventModalProps> = (props): JSX.Element => {
-  const zIndexOpen : CSSProperties = {zIndex:-10};
-  const zIndexClose : CSSProperties = {zIndex:0};
-  
+export const Modal: FC<ModalProps> = (props): JSX.Element => {
+  const {children , handleModal, isOpen } = props
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center"  style={!props.isOpen ? zIndexOpen: zIndexClose}></div>
-      <Transition show={props.isOpen} as={Fragment}>
+      <div className="fixed inset-0 flex items-center justify-center"></div>
+      <Transition show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
+          className="fixed inset-0  overflow-y-auto"
           static
-          open={props.isOpen}
-          onClose={props.handleModal}
+          open={isOpen}
+          onClose={handleModal}
         >
           <div className="min-h-screen px-4 text-center">
             <Transition.Child
@@ -57,9 +53,9 @@ export const EventModal: FC<EventModalProps> = (props): JSX.Element => {
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 mb-4 ml-2"
                 >
-                  Add an Event
+                  Edit Event
                 </Dialog.Title>
-                <EventForm   closeModal ={props.handleModal} />
+               {children}
 
               </div>
             </Transition.Child>

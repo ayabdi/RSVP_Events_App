@@ -1,7 +1,7 @@
 import { useRouter } from "next/dist/client/router";
 import jwt from "jsonwebtoken";
 import { useMutation } from "@apollo/client";
-import { updateInviteStatus } from "../../graphql/inviteeQueries";
+import { updateInviteStatus } from "../../../graphql/inviteeQueries";
 import { FC} from "react";
 
 interface UpdateInviteStatus {
@@ -16,6 +16,7 @@ interface StatsuResponseProps {
 
 
 const StatusResponse : FC<StatsuResponseProps> = (props) => {
+  const {response, message} = props
   const router = useRouter();
   
   const { token } = router.query;
@@ -31,7 +32,7 @@ const StatusResponse : FC<StatsuResponseProps> = (props) => {
       decodedToken = jwt.verify(stringToken, "shhhht");
        updateData = {
         id: decodedToken.invite_id,
-        status: props.response,
+        status: response,
       };
     
       mutate({
@@ -45,7 +46,7 @@ const StatusResponse : FC<StatsuResponseProps> = (props) => {
     }
   }
   
-  return updateData?.id?(<div>{props.message}</div>) : null
+  return updateData?.id?(<div>{message}</div>) : null
 };
 
 export default StatusResponse;

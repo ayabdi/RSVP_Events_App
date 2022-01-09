@@ -51,7 +51,7 @@ const useForm = () => {
       });
       setSubmitted(true);
     } catch (error) {
-      console.error(error.response.data);
+      console.error(error);
     }
   };
   return {

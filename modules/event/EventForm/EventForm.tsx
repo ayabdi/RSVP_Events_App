@@ -3,25 +3,28 @@ import DatePicker from "react-datepicker";
 import useForm from "./useForm";
 import "react-datepicker/dist/react-datepicker.css";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { EventsQueryType } from "../../../graphql/eventQueries";
 
 interface EventFormProps {
   closeModal: () => void;
   id: number;
+  eventData : EventsQueryType
 }
 export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
+  const {eventData} = props
   const {
     handleChange,
     onSubmit,
-    eventData,
-    setEventData,
+    setFormData,
+    formData,
     handleSelectChange,
     submitted,
     loading,
-  } = useForm(props.id);
+  } = useForm(eventData);
   const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
-    setEventData((eventData) => ({ ...eventData, event_date: startDate }));
+    setFormData((formData) => ({ ...formData, event_date: startDate }));
   }, [startDate]);
 
   useEffect(() => {
@@ -51,7 +54,7 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
                     <input
                       type="text"
                       name="event_name"
-                      value={eventData.event_name}
+                      value={formData.event_name}
                       id="event_name"
                       autoComplete="given-name"
                       onChange={handleChange}
@@ -68,7 +71,7 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
                     <input
                       type="text"
                       name="event_desc"
-                      value={eventData.event_desc}
+                      value={formData.event_desc}
                       id="event_desc"
                       autoComplete="given-name"
                       onChange={handleChange}
@@ -85,7 +88,7 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
                     </label>
                     <select
                       name="event_type"
-                      value={eventData.event_type}
+                      value={formData.event_type}
                       id="event_type"
                       autoComplete="country"
                       onChange={handleSelectChange}
@@ -104,7 +107,7 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
                       Event Date *
                     </label>
                     <DatePicker
-                      selected={new Date(eventData.event_date)}
+                      selected={new Date(formData.event_date)}
                       onChange={(date: Date) => setStartDate(date)}
                       className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm flex"
                     />
@@ -119,7 +122,7 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
                   <input
                     type="text"
                     name="duration"
-                    value={eventData.duration}
+                    value={formData.duration}
                     id="duration"
                     autoComplete="given-name"
                     onChange={handleChange}
@@ -137,7 +140,7 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
                     <select
                       id="country"
                       name="country"
-                      value={eventData.country}
+                      value={formData.country}
                       autoComplete="country"
                       onChange={handleSelectChange}
                       className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -159,7 +162,7 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
                       type="text"
                       name="address"
                       id="address"
-                      value={eventData.address}
+                      value={formData.address}
                       autoComplete="street-address"
                       onChange={handleChange}
                       className="mt-1 block w-full py-1 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -176,7 +179,7 @@ export const EventForm: FC<EventFormProps> = (props): JSX.Element => {
                     <input
                       type="text"
                       name="city"
-                      value={eventData.city}
+                      value={formData.city}
                       onChange={handleChange}
                       id="city"
                       className="mt-1 block w-full py-1 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

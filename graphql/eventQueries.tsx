@@ -20,6 +20,8 @@ export type EventsQueryType = {
   email?: string;
   User?: UserType;
   Invitees?: InviteeObjectType[];
+  __typename? : string;
+  created_at?: Date
 };
 
 export const GET_Events: DocumentNode = gql`
@@ -31,7 +33,7 @@ export const GET_Events: DocumentNode = gql`
 `;
 
 export const GET_EVENT_BY_ID: DocumentNode = gql`
-  subscription MyQuery($id: numeric) {
+  subscription MyQuery($id: Int) {
     RSVP_Events(where: { id: { _eq: $id } }) {
       event_name
       event_type

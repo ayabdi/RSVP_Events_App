@@ -1,10 +1,11 @@
-import { useSubscription } from "@apollo/client";
+import { useMutation, useSubscription } from "@apollo/client";
+import { PlusCircleIcon } from "@heroicons/react/solid";
 import { CircularProgress } from "@material-ui/core";
 import { format } from "date-fns";
-import { FC, Key } from "react";
-import { getInviteesByEventId } from "../../../graphql/inviteeQueries";
-import { Button } from "../AddInviteBtn/AddInviteButton";
-import { DeleteButton } from "../DeleteButton/DeleteButton";
+import { FC, Key, useState } from "react";
+import { deleteInvite, getInviteesByEventId } from "../../../graphql/inviteeQueries";
+import { IconButton, Modal } from "../../shared_components";
+import { InviteForm } from "../InviteForm/inviteForm";
 
 interface InviteeListProps {
   event: any;
@@ -15,9 +16,16 @@ export const InviteeList: FC<InviteeListProps> = (props): JSX.Element => {
   const { data, loading } = useSubscription(
     getInviteesByEventId(props.event.id)
   );
-  console.log(data);
 
-  // const eventData = data?.RSVP_Invitees[0]?.Event;
+  const [deleteMutation] = useMutation(deleteInvite());
+  const deleteInviteFunction = (id: number) => {
+    deleteMutation({
+      variables: { id: id},
+    });
+  };
+  const [isOpen, setIsOpen] = useState(false);
+  const handleModal = () => (isOpen ? setIsOpen(false) : setIsOpen(true));
+
   return (
     <div className="flex flex-col  justify-around ml-60 md:ml-72 xl:ml-96">
       <div className="flex flex-col w-full ml-0 ">
@@ -31,12 +39,22 @@ export const InviteeList: FC<InviteeListProps> = (props): JSX.Element => {
         <div className="my-40 ">
           <div className="py-2  inline-block md:w-full xl:w-4/5 sm:px-6 md:px-8">
             <div className=" flex justify-end w-full">
-              {props.event && <Button event_id={props.event.id} />}
+              {props.event && (
+                <button
+                  className=" flex mt-2 ml-0 md:mt-0 md:ml-4 mb-8 px-3 py-2 border-transparent shadow-sm text-sm font-medium h-9 rounded-md text-white bg-purple-900 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 z-20"
+                  onClick={handleModal}
+                >
+                  <PlusCircleIcon className="h-5 mr-2" />
+                  Add Invite
+                </button>
+              )}
             </div>
-
+            <Modal isOpen={isOpen} handleModal={handleModal}>
+              <InviteForm closeModal={handleModal} event_id={props.event.id} />
+            </Modal>
             {loading ? (
               <div className="w-full text-center h-40 mt-36 mb-60 -ml-20">
-                <CircularProgress size={110} className="" />{" "}
+                <CircularProgress size={110} className=""/>
               </div>
             ) : data.RSVP_Invitees[0]?.name ? (
               <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -73,7 +91,10 @@ export const InviteeList: FC<InviteeListProps> = (props): JSX.Element => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900">
-                            { format(new Date(invitee.date_invited), 'dd/MM/yyyy')}
+                            {format(
+                              new Date(invitee.date_invited),
+                              "dd/MM/yyyy"
+                            )}
                           </div>
                         </td>
                         <td className="px-6 py-4 text-left  whitespace-nowrap">
@@ -89,8 +110,8 @@ export const InviteeList: FC<InviteeListProps> = (props): JSX.Element => {
                             {invitee.status}
                           </span>
                         </td>
-                        <td className="px-6 py-4 flex whitespace-nowrap text-right text-sm font-medium mt-2">
-                          <DeleteButton invitee_id={invitee.id} />
+                        <td className="px-6 py-4 flex whitespace-nowrap text-right text-sm font-medium mt-1">
+                          <IconButton icon='delete' size="h-6" onClick={()=>deleteInviteFunction(invitee?.id)}/>
                         </td>
                       </tr>
                     ))}

@@ -1,6 +1,6 @@
 import { gql } from "graphql-request";
 import { graphQLClient } from "../../lib/auth/user";
-import { EventLayout } from "../../modules/event/Index";
+import { Layout } from "../../modules/layout/Index";
 import { initializeApollo } from "../../lib/apollo";
 import { getSession } from "next-auth/client";
 
@@ -42,4 +42,4 @@ export async function getServerSideProps(context: any) {
 }
 
 
-export default EventLayout;
+export default Layout;

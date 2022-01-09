@@ -1,22 +1,21 @@
 import { FC, useState, useEffect } from "react";
-import { EventDetails } from "./EventDetails/EventDetails";
+import { EventDetails } from "../event/EventDetails/EventDetails";
 import { InviteeList } from "../invites/InviteList/InviteeList";
-import { SidebarNav } from "./SideBar/SidebarNav";
+import { SidebarNav } from "../event/SideBar/SidebarNav";
 import { useRouter } from "next/dist/client/router";
 
 
-interface EventLayoutProps{
+interface LayoutProps{
     event : any,
     isAuthorisedUser : boolean
 }
-export const EventLayout: FC<EventLayoutProps> = (props): JSX.Element => {
+export const Layout: FC<LayoutProps> = (props): JSX.Element => {
   const [navCount, setNavCount] = useState(2);
   const router = useRouter();
   
   useEffect(() => {
     if (!props.isAuthorisedUser) router.push('/404')
   }, [])
- console.log(props.event)
 
   return (
     <>
